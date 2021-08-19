@@ -33,7 +33,7 @@ print('Datos de vuelta a formato XML')
 print(data_email)
 
 
-# Ejercicio: Modifica el codigo y convierte el XML de frutas a diccionario, json y de vuelta a XML, imprime los resultados
+# Ejercicio: Utiliza el codigo como ejemplo y convierte el XML de frutas a diccionario, json y de vuelta a XML, imprime los resultados
 
 data_frutas = '''
 <frutas>
