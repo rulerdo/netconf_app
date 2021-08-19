@@ -11,7 +11,7 @@ import json
 from collections import OrderedDict
 
 # Datos originales en formato XML que vamos a manipular con los modulos
-data_email = '<email><para>Brenda</para><de>Raul</de><encabezado>Felicidades!</encabezado><mensaje>Querido Brenda, feliz cumple. Raul.</mensaje></email>'
+data_email = '<email><para>Brenda</para><de>Raul</de><encabezado>Felicidades!</encabezado><mensaje>Querida Brenda, feliz cumple. Raul.</mensaje></email>'
 
 # Imprimir los datos originales
 print('Datos originales:')
