@@ -2,7 +2,7 @@
 
 """
 Script para demostrar datos en formatos XML, Diccionarios Ordenados y JSON utilizando las librerias xmltodict json y collections.OrderedDict
-Author: Raul Gomez
+Autor: Raul Gomez
 email: raul.agobe@gmail.com
 """
 
