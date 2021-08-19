@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Script para demostrar datos en formatos XML, Diccionarios Ordenados y JSON utilizando las librerias xmltodict json y collections.OrderedDict
+Script para mostrar los formatos de datos XML, Diccionarios Ordenados y JSON utilizando las librerias xmltodict json y collections.OrderedDict
 Autor: Raul Gomez
 email: raul.agobe@gmail.com
 """
@@ -16,23 +16,31 @@ data_email = '<email><para>Brenda</para><de>Raul</de><encabezado>Felicidades!</e
 # Imprimir los datos originales
 print('Datos originales:')
 print(data_email)
+print('')
 
 # Convertimos los datos de XML a un Diccionario Ordenado e imprimimos el resultado
-dict_email = xmltodict.parse(data_email)
-print('Datos convertidos a un diccionario ordenado')
-print(dict_email)
+odict_email = xmltodict.parse(data_email)
+print('Datos convertidos a un diccionario ordenado:')
+print(odict_email)
+print('')
 
 # Convertimos los datos de un Diccionario Ordenado a json e imprimimos el resultado
-json_email = json.dumps(dict_email)
-print('Datos convertidos a json')
+json_email = json.dumps(odict_email)
+print('Datos convertidos a json:')
 print(json_email)
+print('')
 
-# Convertimos los datos de json a XML e imprimimos el resultado
-xml_email = data = json.JSONDecoder(object_pairs_hook=OrderedDict).decode(json_email)
-print('Datos de vuelta a formato XML')
-print(data_email)
+# Convertimos los datos de json a diccionario ordenado e imprimimos el resultado
+odict_email2 = data = json.JSONDecoder(object_pairs_hook=OrderedDict).decode(json_email)
+print('Datos de vuelta a formato diccionario ordenado:')
+print(odict_email2)
+print('')
 
-
+# Finalmente convertimos el diccionario ordenado a XML para volver a los datos originales
+xml_email = xmltodict.unparse(odict_email2)
+print('Datos de vuelta a formato XML:')
+print(xml_email)
+print('')
 # Ejercicio: Utiliza el codigo como ejemplo y convierte el XML de frutas a diccionario, json y de vuelta a XML, imprime los resultados
 
 data_frutas = '''
