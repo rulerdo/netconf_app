@@ -10,7 +10,7 @@ import xmltodict
 import json
 
 # Datos originales en formato XML que vamos a manipular con los modulos
-data_email = '<email><para>Brenda</para><de>Raul</de><encabezado>Felicidades!</encabezado><mensaje>Feliz cumple querida Brenda</mensaje></email>'
+data_email = '<email><para>Brenda</para><de>Raul</de><titulo>Felicidades!</titulo><mensaje>Feliz cumple querida Brenda</mensaje></email>'
 
 # Imprimir los datos originales
 print('Datos originales:')
