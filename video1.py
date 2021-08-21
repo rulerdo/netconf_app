@@ -40,6 +40,7 @@ xml_email = xmltodict.unparse(json_email)
 print('Datos de vuelta a formato XML:')
 print(xml_email)
 print('')
+
 # Ejercicio: Utiliza el codigo como ejemplo y convierte el XML de frutas a diccionario, json y de vuelta a XML, imprime los resultados
 
 data_frutas = '''
