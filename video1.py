@@ -29,6 +29,12 @@ print('Datos convertidos a json:')
 print(json_email)
 print('')
 
+# Usamos el archivo json para imprimir los datos con formato
+print('Datos del email con formato:')
+for key,value in json_email['email'].items():
+    print(key + ': ' + value)
+print('')
+
 # Finalmente convertimos el json a XML para volver a los datos originales
 xml_email = xmltodict.unparse(json_email)
 print('Datos de vuelta a formato XML:')
