@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+
+"""
+Archivo de python que utilizaremos para importar los diccionarios con todos los datos para conectarnos a los equipos del laboratorio
+Autor: Raul Gomez
+email: raul.agobe@gmail.com
+"""
+
 lab_c8000v = {
              'address': '10.88.255.98',
              'username': 'admin',
