@@ -13,35 +13,45 @@ import json
 data_email = '<email><para>Brenda</para><de>Raul</de><titulo>Felicidades!</titulo><mensaje>Feliz cumple querida Brenda</mensaje></email>'
 
 # Imprimir los datos originales
-print('Datos originales:')
+print('1) Datos originales:')
 print(data_email)
 print('')
 
 # Convertimos los datos de XML a un Diccionario Ordenado e imprimimos el resultado
 odict_email = xmltodict.parse(data_email)
-print('Datos convertidos a un diccionario ordenado:')
+print('2) Datos convertidos a un diccionario ordenado:')
 print(odict_email)
 print('')
 
 # Convertimos los datos de un Diccionario Ordenado a json e imprimimos el resultado
 json_email = json.loads(json.dumps(odict_email))
-print('Datos convertidos a json:')
+print('3) Datos convertidos a json:')
 print(json_email)
 print('')
 
 # Usamos el archivo json para imprimir los datos con formato
-print('Datos del email con formato:')
+print('4) Obtener los datos del email y presentarlos con formato desde JSON:')
 for key,value in json_email['email'].items():
     print(key + ': ' + value)
 print('')
 
 # Finalmente convertimos el json a XML para volver a los datos originales
 xml_email = xmltodict.unparse(json_email)
-print('Datos de vuelta a formato XML:')
+print('5) Datos de vuelta a formato XML:')
 print(xml_email)
 print('')
 
-# Ejercicio: Utiliza el codigo como ejemplo y convierte el XML de frutas a diccionario, json y de vuelta a XML, imprime los resultados
+# Para acceder a los datos directamente del formato XML podemos usar el modulo XML element Tree
+
+import xml.etree.ElementTree as et
+
+contenedor = et.fromstring(xml_email)
+print('6) Obtener los datos del email y presentarlos con formato desde XML:')
+for x in contenedor:
+    print(x.tag + ': ' + x.text)
+print('')
+
+# Ejercicio: Utiliza el codigo como ejemplo y convierte el XML de frutas a diccionario, json y de vuelta a XML, imprime los datos
 
 data_frutas = '''
 <frutas>
