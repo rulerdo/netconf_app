@@ -37,4 +37,3 @@ if __name__ == '__main__':
 
     print('Aqui la configuracion: ')
     print(config)
-    print('')
