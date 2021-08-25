@@ -19,6 +19,8 @@ def get_filtered_config(device,netconf_filter):
                             username=device['username'],
                             password=device['password'],
                             hostkey_verify=False) as m:
+        
+        # Usamos la llave version para decidir el uso del filtro dentro de get_config
 
         if float(device['version']) >= 17.3:
             filtered_config = m.get_config('running',filter=('subtree',netconf_filter))

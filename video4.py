@@ -23,6 +23,8 @@ def get_filtered_config(device,netconf_filter):
                             password=device['password'],
                             hostkey_verify=False) as m:
 
+        # Usamos la llave version para decidir el uso del filtro dentro de get_config
+        
         if float(device['version']) >= 17.3:
             filtered_config = m.get_config('running',filter=('subtree',netconf_filter)).xml
 
@@ -32,6 +34,7 @@ def get_filtered_config(device,netconf_filter):
     
     return filtered_config
 
+# Funcion para convertir un dato XML a JSON
 
 def convert_xml_json(xml_data):
 
@@ -47,8 +50,10 @@ def convert_xml_json(xml_data):
 
     return config
 
+#Funcion para imprimir los datos obtenidos via netconf, el formato cambia dependiendo de la opcion de configuracion
 
-def print_format(config,config_id):
+def config_format(config,config_id):
+
     response = list()
 
     if config_id == '1':
@@ -99,6 +104,7 @@ def print_format(config,config_id):
 
 if __name__ == '__main__':
 
+    # Diccionario de filtros MI FAVORITO!
     dicc_filtros = {
         '1': f.hostname,
         '2': f.usernames,
@@ -106,13 +112,19 @@ if __name__ == '__main__':
         '4': f.loopback10
     }
 
+    # Usamos FOR anidados para imprimir todas las opciones
     for equipo in (d.lab_4331,d.lab_c8000v):
-        
+
         for config_id,filtro in dicc_filtros.items():
 
+            # Usamos la funcion get_filtered_config (NETCONF)
             xml_config = get_filtered_config(equipo,filtro)
 
+            # Convertimos la respuesta XML a JSON
             config = convert_xml_json(xml_config)
 
-            response = print_format(config,config_id)
+            # Formateamosa los datos, desde JSON es muy facil
+            response = config_format(config,config_id)
+
+            # Se imprimen los resultados en la terminal
             [print(line) for line in response]
