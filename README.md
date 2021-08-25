@@ -20,4 +20,4 @@ La idea del proyecto es que cada quien cree su propio codigo pero puedes clonar 
 
 Cualquier comentario o duda por favor enviar a Raul Gomez:
 
-    rgomezbe@gmail.com
+    raul.agobe@gmail.com
