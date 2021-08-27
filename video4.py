@@ -11,7 +11,6 @@ import xmltodict
 import json
 import devices as d
 import filters as f
-from pprint import pprint
 
 # Funcion para conectarse via NETCONF a un equipo de red y obtener la running config usando filtros
 
