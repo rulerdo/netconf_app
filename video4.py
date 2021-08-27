@@ -133,13 +133,14 @@ Selecciona la configuracion que quieres obtener: ''')
         if device_id in ['1','2'] and config_id in ['1','2','3','4']:
             menu = False
         else:
-            print('Seleccion incorrecta, usa los numeros disponibles para seleccionar equipo y configuracion')
+            print('Opcion incorrecta, usa los numeros disponibles para seleccionar equipo y configuracion')
 
     # Obtenemos el equipo y filtro de los diccionarios
     device = dicc_equipos[device_id]
     netconf_filter = dicc_filtros[config_id]
 
     # Usamos la funcion get_filtered_config (NETCONF)
+    print('Obteniendo configuracion solicitada ...')
     xml_config = get_filtered_config(device,netconf_filter)
 
     # Convertimos la respuesta XML a JSON
