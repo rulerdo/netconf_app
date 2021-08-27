@@ -111,19 +111,43 @@ if __name__ == '__main__':
         '4': f.loopback10
     }
 
-    # Usamos FOR anidados para imprimir todas las opciones
-    for equipo in (d.lab_4331,d.lab_c8000v):
+    dicc_equipos = {
+        '1': d.lab_4331,
+        '2': d.lab_c8000v  
+    }
 
-        for config_id,filtro in dicc_filtros.items():
+    menu = True
+    while menu:
+        device_id = input('''
+1) ISR 4331
+2) Catalyst 8000v
+Selecciona el equipo al que te quieras conectar: ''')
 
-            # Usamos la funcion get_filtered_config (NETCONF)
-            xml_config = get_filtered_config(equipo,filtro)
+        config_id = input('''
+1) Hostname
+2) Usuarios
+3) Rutas
+4) Interfaz Loopback 10
+Selecciona la configuracion que quieres obtener: ''')
 
-            # Convertimos la respuesta XML a JSON
-            config = convert_xml_json(xml_config)
+        if device_id in ['1','2'] and config_id in ['1','2','3','4']:
+            menu = False
+        else:
+            print('Seleccion incorrecta, usa los numeros para seleccionar equipo y configuracion')
 
-            # Formateamosa los datos, desde JSON es muy facil
-            response = config_format(config,config_id)
+    # Obtenemos el equipo y filtro de los diccionarios
+    device = dicc_equipos[device_id]
+    netconf_filter = dicc_filtros[config_id]
 
-            # Se imprimen los resultados en la terminal
-            [print(line) for line in response]
+    # Usamos la funcion get_filtered_config (NETCONF)
+    xml_config = get_filtered_config(device,netconf_filter)
+
+    # Convertimos la respuesta XML a JSON
+    config = convert_xml_json(xml_config)
+
+    # Formateamos los datos, desde JSON es muy facil
+    response = config_format(config,config_id)
+
+    # Se imprimen los resultados en la terminal
+    print('')
+    [print(line) for line in response]
