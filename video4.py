@@ -133,7 +133,7 @@ Selecciona la configuracion que quieres obtener: ''')
         if device_id in ['1','2'] and config_id in ['1','2','3','4']:
             menu = False
         else:
-            print('Seleccion incorrecta, usa los numeros para seleccionar equipo y configuracion')
+            print('Seleccion incorrecta, usa los numeros disponibles para seleccionar equipo y configuracion')
 
     # Obtenemos el equipo y filtro de los diccionarios
     device = dicc_equipos[device_id]
