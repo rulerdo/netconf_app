@@ -99,24 +99,10 @@ def config_format(config,config_id):
 
     return response
 
-# Llamamos nuestras funciones
+def get_options():
 
-if __name__ == '__main__':
-
-    # Diccionario de filtros MI FAVORITO!
-    dicc_filtros = {
-        '1': f.hostname,
-        '2': f.usernames,
-        '3': f.routes,
-        '4': f.loopback10
-    }
-
-    dicc_equipos = {
-        '1': d.lab_4331,
-        '2': d.lab_c8000v  
-    }
-
-    menu = True
+    menu=True
+    
     while menu:
         device_id = input('''
 1) ISR 4331
@@ -134,6 +120,27 @@ Selecciona la configuracion que quieres obtener: ''')
             menu = False
         else:
             print('Opcion incorrecta, usa los numeros disponibles para seleccionar equipo y configuracion')
+
+    return device_id,config_id   
+
+# Llamamos nuestras funciones
+
+if __name__ == '__main__':
+
+    # Diccionario de filtros MI FAVORITO!
+    dicc_filtros = {
+        '1': f.hostname,
+        '2': f.usernames,
+        '3': f.routes,
+        '4': f.loopback10
+    }
+
+    dicc_equipos = {
+        '1': d.lab_4331,
+        '2': d.lab_c8000v  
+    }
+
+    device_id,config_id = get_options()
 
     # Obtenemos el equipo y filtro de los diccionarios
     device = dicc_equipos[device_id]
