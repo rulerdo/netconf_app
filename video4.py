@@ -62,10 +62,10 @@ def config_format(config,config_id):
     elif config_id == '2':
 
         if type(config["username"]) == list:
-            list_config = config
+            list_config = config["username"]
         else:
-            list_config = [config]
-        for user in list_config["username"]:
+            list_config = [config["username"]]
+        for user in list_config:
             name = user["name"]
             priv = user["privilege"]
             secret = user["secret"]["secret"]
