@@ -11,7 +11,6 @@ import xmltodict
 import json
 import devices as d
 import filters as f
-from pprint import pprint
 
 # Funcion para conectarse via NETCONF a un equipo de red y obtener la running config usando filtros
 
@@ -50,9 +49,6 @@ def convert_xml_json(xml_data):
 
     return config
 
-<<<<<<< HEAD
-# Funcion Menu para seleccionar el equipo y la configuracion que queremos obtener
-=======
 #Funcion para imprimir los datos obtenidos via netconf, el formato cambia dependiendo de la opcion de configuracion
 
 def config_format(config,config_id):
@@ -66,10 +62,10 @@ def config_format(config,config_id):
     elif config_id == '2':
 
         if type(config["username"]) == list:
-            list_config = config["username"]
+            list_config = config
         else:
-            list_config = [config["username"]]
-        for user in list_config:
+            list_config = [config]
+        for user in list_config["username"]:
             name = user["name"]
             priv = user["privilege"]
             secret = user["secret"]["secret"]
@@ -102,7 +98,6 @@ def config_format(config,config_id):
         response.append('Filtro sin soporte')
 
     return response
->>>>>>> 802db4270d155881762c89cd172cb8d31572ee45
 
 def get_options():
 
@@ -126,10 +121,12 @@ Selecciona la configuracion que quieres obtener: ''')
         else:
             print('Opcion incorrecta, usa los numeros disponibles para seleccionar equipo y configuracion')
 
-    return device_id,config_id
+    return device_id,config_id   
 
-def get_device_filter(device_id,filter_id):
-    
+# Llamamos nuestras funciones
+
+if __name__ == '__main__':
+
     # Diccionario de filtros MI FAVORITO!
     dicc_filtros = {
         '1': f.hostname,
@@ -143,18 +140,11 @@ def get_device_filter(device_id,filter_id):
         '2': d.lab_c8000v  
     }
 
+    device_id,config_id = get_options()
+
     # Obtenemos el equipo y filtro de los diccionarios
     device = dicc_equipos[device_id]
-    netconf_filter = dicc_filtros[filter_id]
-
-    return device,netconf_filter
-
-# Llamamos nuestras funciones
-
-if __name__ == '__main__':
-
-    device_id,filter_id = get_options()
-    device,netconf_filter = get_device_filter(device_id,filter_id)
+    netconf_filter = dicc_filtros[config_id]
 
     # Usamos la funcion get_filtered_config (NETCONF)
     print('Obteniendo configuracion solicitada ...')
@@ -163,5 +153,9 @@ if __name__ == '__main__':
     # Convertimos la respuesta XML a JSON
     config = convert_xml_json(xml_config)
 
+    # Formateamos los datos, desde JSON es muy facil
+    response = config_format(config,config_id)
+
     # Se imprimen los resultados en la terminal
-    pprint(config)
+    print('')
+    [print(line) for line in response]
