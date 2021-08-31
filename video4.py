@@ -50,59 +50,7 @@ def convert_xml_json(xml_data):
 
     return config
 
-<<<<<<< HEAD
 # Funcion Menu para seleccionar el equipo y la configuracion que queremos obtener
-=======
-#Funcion para imprimir los datos obtenidos via netconf, el formato cambia dependiendo de la opcion de configuracion
-
-def config_format(config,config_id):
-
-    response = list()
-
-    if config_id == '1':
-        h_response = f'Hostname: {config["hostname"]}\n'
-        response.append(h_response)
-
-    elif config_id == '2':
-
-        if type(config["username"]) == list:
-            list_config = config["username"]
-        else:
-            list_config = [config["username"]]
-        for user in list_config:
-            name = user["name"]
-            priv = user["privilege"]
-            secret = user["secret"]["secret"]
-            encryption = user["secret"]["encryption"]
-            u_response = f'user: {name}\nprivilegio: {priv}\nencripcion: {encryption}\nsecreto: {secret}\n'
-            response.append(u_response)
-
-    elif config_id == '3':
-
-        if type(config["ip"]["route"]["ip-route-interface-forwarding-list"]) == list:
-            list_config = config
-        else:
-            list_config = [config]
-        for route in config["ip"]["route"]["ip-route-interface-forwarding-list"]:
-            prefix = route["prefix"]
-            mask = route["mask"]
-            next_hop = route["fwd-list"]['fwd']
-            r_response = f'Prefijo: {prefix}\nMascara: {mask}\nNext Hop: {next_hop}\n'
-            response.append(r_response)
-
-    elif config_id == '4':
-        name = "Loopback10"
-        primary = config["interface"]["Loopback"]["ip"]["address"]["primary"]
-        ip = primary["address"]
-        mask = primary["mask"]
-        l_response =  f'{name}\nIP: {ip}\nMascara: {mask}\n'
-        response.append(l_response)
-
-    else:
-        response.append('Filtro sin soporte')
-
-    return response
->>>>>>> 802db4270d155881762c89cd172cb8d31572ee45
 
 def get_options():
 
