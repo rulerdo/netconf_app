@@ -11,6 +11,7 @@ import xmltodict
 import json
 import devices as d
 import filters as f
+from pprint import pprint
 
 # Funcion para conectarse via NETCONF a un equipo de red y obtener la running config usando filtros
 
@@ -49,55 +50,7 @@ def convert_xml_json(xml_data):
 
     return config
 
-#Funcion para imprimir los datos obtenidos via netconf, el formato cambia dependiendo de la opcion de configuracion
-
-def config_format(config,config_id):
-
-    response = list()
-
-    if config_id == '1':
-        h_response = f'Hostname: {config["hostname"]}\n'
-        response.append(h_response)
-
-    elif config_id == '2':
-
-        if type(config["username"]) == list:
-            list_config = config
-        else:
-            list_config = [config]
-        for user in list_config["username"]:
-            name = user["name"]
-            priv = user["privilege"]
-            secret = user["secret"]["secret"]
-            encryption = user["secret"]["encryption"]
-            u_response = f'user: {name}\nprivilegio: {priv}\nencripcion: {encryption}\nsecreto: {secret}\n'
-            response.append(u_response)
-
-    elif config_id == '3':
-
-        if type(config["ip"]["route"]["ip-route-interface-forwarding-list"]) == list:
-            list_config = config
-        else:
-            list_config = [config]
-        for route in config["ip"]["route"]["ip-route-interface-forwarding-list"]:
-            prefix = route["prefix"]
-            mask = route["mask"]
-            next_hop = route["fwd-list"]['fwd']
-            r_response = f'Prefijo: {prefix}\nMascara: {mask}\nNext Hop: {next_hop}\n'
-            response.append(r_response)
-
-    elif config_id == '4':
-        name = "Loopback10"
-        primary = config["interface"]["Loopback"]["ip"]["address"]["primary"]
-        ip = primary["address"]
-        mask = primary["mask"]
-        l_response =  f'{name}\nIP: {ip}\nMascara: {mask}\n'
-        response.append(l_response)
-
-    else:
-        response.append('Filtro sin soporte')
-
-    return response
+# Funcion Menu para seleccionar el equipo y la configuracion que queremos obtener
 
 def get_options():
 
@@ -121,12 +74,10 @@ Selecciona la configuracion que quieres obtener: ''')
         else:
             print('Opcion incorrecta, usa los numeros disponibles para seleccionar equipo y configuracion')
 
-    return device_id,config_id   
+    return device_id,config_id
 
-# Llamamos nuestras funciones
-
-if __name__ == '__main__':
-
+def get_device_filter(device_id,filter_id):
+    
     # Diccionario de filtros MI FAVORITO!
     dicc_filtros = {
         '1': f.hostname,
@@ -140,11 +91,18 @@ if __name__ == '__main__':
         '2': d.lab_c8000v  
     }
 
-    device_id,config_id = get_options()
-
     # Obtenemos el equipo y filtro de los diccionarios
     device = dicc_equipos[device_id]
-    netconf_filter = dicc_filtros[config_id]
+    netconf_filter = dicc_filtros[filter_id]
+
+    return device,netconf_filter
+
+# Llamamos nuestras funciones
+
+if __name__ == '__main__':
+
+    device_id,filter_id = get_options()
+    device,netconf_filter = get_device_filter(device_id,filter_id)
 
     # Usamos la funcion get_filtered_config (NETCONF)
     print('Obteniendo configuracion solicitada ...')
@@ -153,9 +111,5 @@ if __name__ == '__main__':
     # Convertimos la respuesta XML a JSON
     config = convert_xml_json(xml_config)
 
-    # Formateamos los datos, desde JSON es muy facil
-    response = config_format(config,config_id)
-
     # Se imprimen los resultados en la terminal
-    print('')
-    [print(line) for line in response]
+    pprint(config)
