@@ -36,7 +36,7 @@ def get_filtered_config(device,netconf_filter):
 
 # Funcion para convertir un dato XML a JSON
 
-def convert_xml_json(xml_data):
+def xml_to_json(xml_data):
 
     # Convertir XML a diccionario ordenado
     od_data = xmltodict.parse(xml_data)
@@ -52,7 +52,7 @@ def convert_xml_json(xml_data):
 
 # Funcion Menu para seleccionar el equipo y la configuracion que queremos obtener
 
-def get_options():
+def get_options_menu():
 
     menu=True
     
@@ -101,7 +101,7 @@ def get_device_filter(device_id,filter_id):
 
 if __name__ == '__main__':
 
-    device_id,filter_id = get_options()
+    device_id,filter_id = get_options_menu()
     device,netconf_filter = get_device_filter(device_id,filter_id)
 
     # Usamos la funcion get_filtered_config (NETCONF)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     xml_config = get_filtered_config(device,netconf_filter)
 
     # Convertimos la respuesta XML a JSON
-    config = convert_xml_json(xml_config)
+    config = xml_to_json(xml_config)
 
     # Se imprimen los resultados en la terminal
     pprint(config)
