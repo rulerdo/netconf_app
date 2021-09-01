@@ -109,28 +109,28 @@ def config_format(config,config_id):
     elif config_id == '2':
 
         if type(config["username"]) == list:
-            list_config = config
+            list_config = config["username"]
         else:
-            list_config = [config]
-        for user in list_config["username"]:
-            name = user["name"]
-            priv = user["privilege"]
-            secret = user["secret"]["secret"]
-            encryption = user["secret"]["encryption"]
-            u_response = f'user: {name}\nprivilegio: {priv}\nencripcion: {encryption}\nsecreto: {secret}\n'
+            list_config = [config["username"]]
+        for user in list_config:
+            n = user["name"]
+            p = user["privilege"]
+            s = user["secret"]["secret"]
+            c = user["secret"]["encryption"]
+            u_response = f'user: {n}\nprivilegio: {p}\nsecreto: {s}\ncifrado: {c}\n'
             response.append(u_response)
 
     elif config_id == '3':
 
         if type(config["ip"]["route"]["ip-route-interface-forwarding-list"]) == list:
-            list_config = config
+            list_config = config["ip"]["route"]["ip-route-interface-forwarding-list"]
         else:
-            list_config = [config]
-        for route in config["ip"]["route"]["ip-route-interface-forwarding-list"]:
-            prefix = route["prefix"]
-            mask = route["mask"]
-            next_hop = route["fwd-list"]['fwd']
-            r_response = f'Prefijo: {prefix}\nMascara: {mask}\nNext Hop: {next_hop}\n'
+            list_config = [config["ip"]["route"]["ip-route-interface-forwarding-list"]]
+        for route in list_config:
+            p = route["prefix"]
+            m = route["mask"]
+            n = route["fwd-list"]['fwd']
+            r_response = f'Prefijo: {p}\nMascara: {m}\nNext Hop: {n}\n'
             response.append(r_response)
 
     elif config_id == '4':
@@ -142,7 +142,8 @@ def config_format(config,config_id):
         response.append(l_response)
 
     else:
-        response.append('Filtro sin soporte')
+        print('Formato no soportado aun')
+        response.append(config)
 
     return response
  
