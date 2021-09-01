@@ -100,11 +100,11 @@ def get_device_filter(device_id,filter_id):
 
 def config_format(config,config_id):
 
-    response = list()
+    f_config = list()
 
     if config_id == '1':
         h_response = f'Hostname: {config["hostname"]}\n'
-        response.append(h_response)
+        f_config.append(h_response)
 
     elif config_id == '2':
 
@@ -118,7 +118,7 @@ def config_format(config,config_id):
             s = user["secret"]["secret"]
             c = user["secret"]["encryption"]
             u_response = f'user: {n}\nprivilegio: {p}\nsecreto: {s}\ncifrado: {c}\n'
-            response.append(u_response)
+            f_config.append(u_response)
 
     elif config_id == '3':
 
@@ -131,7 +131,7 @@ def config_format(config,config_id):
             m = route["mask"]
             n = route["fwd-list"]['fwd']
             r_response = f'Prefijo: {p}\nMascara: {m}\nNext Hop: {n}\n'
-            response.append(r_response)
+            f_config.append(r_response)
 
     elif config_id == '4':
         name = "Loopback10"
@@ -139,13 +139,13 @@ def config_format(config,config_id):
         ip = primary["address"]
         mask = primary["mask"]
         l_response =  f'{name}\nIP: {ip}\nMascara: {mask}\n'
-        response.append(l_response)
+        f_config.append(l_response)
 
     else:
         print('Formato no soportado aun')
-        response.append(config)
+        f_config.append(config)
 
-    return response
+    return f_config
  
 # Llamamos nuestras funciones
 
@@ -162,8 +162,8 @@ if __name__ == '__main__':
     config = xml_to_json(xml_config)
 
     # Formateamos los datos, desde JSON es muy facil
-    response = config_format(config,filter_id)
+    f_config = config_format(config,filter_id)
 
     # Se imprimen los resultados en la terminal
     print('')
-    [print(line) for line in response]
+    [pprint(line) for line in f_config]
