@@ -35,5 +35,4 @@ new_config = hostname_config.replace('NEW_HOSTNAME',new_hostname)
 print(new_config)
 
 netconf_reply = apply_config(d.lab_4331,new_config)
-
 print(netconf_reply)
