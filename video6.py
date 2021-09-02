@@ -12,10 +12,10 @@ def apply_config(device,new_config):
         hostkey_verify=False) as m:
 
         if device['commit']:
-            netconf_reply = m.edit_config(config = new_config, target = "candidate")
+            netconf_reply = m.edit_config(config=new_config, target="candidate")
             m.commit()
         else:
-            netconf_reply = m.edit_config(new_config, target = "running")
+            netconf_reply = m.edit_config(config=new_config, target="running")
             netconf_save = '<cisco-ia:save-config xmlns:cisco-ia="http://cisco.com/yang/cisco-ia"/>'
             m.dispatch(netconf_save)
         
@@ -32,6 +32,7 @@ hostname_config = '''
 new_hostname = input('Escribe el nuevo hostname: ')
 
 new_config = hostname_config.replace('NEW_HOSTNAME',new_hostname)
+print(new_config)
 
 netconf_reply = apply_config(d.lab_4331,new_config)
 
