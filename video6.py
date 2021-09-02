@@ -1,9 +1,8 @@
-from ncclient import manager
+from ncclient import manager,xml_
 import devices as d
-import filters as f
 
-def apply_config(device,new_config):
-
+def get_config_filter(device,new_config):
+    
     with manager.connect(
         host=device['address'],
         port=device['port'],
@@ -12,17 +11,17 @@ def apply_config(device,new_config):
         hostkey_verify=False) as m:
 
         if device['commit']:
-            netconf_reply = m.edit_config(config=new_config, target="candidate")
+            netconf_reply = m.edit_config(config=new_config,target='candidate')
             m.commit()
         else:
-            netconf_reply = m.edit_config(config=new_config, target="running")
+            netconf_reply = m.edit_config(config=new_config,target='running')
             netconf_save = '<cisco-ia:save-config xmlns:cisco-ia="http://cisco.com/yang/cisco-ia"/>'
-            m.dispatch(netconf_save)
-        
-        return netconf_reply
+            m.dispatch(xml_.to_ele(netconf_save))
+
+    return netconf_reply
 
 hostname_config = '''
-<config>
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
     <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
         <hostname>NEW_HOSTNAME</hostname>
     </native>
@@ -30,9 +29,8 @@ hostname_config = '''
 '''
 
 new_hostname = input('Escribe el nuevo hostname: ')
-
 new_config = hostname_config.replace('NEW_HOSTNAME',new_hostname)
 print(new_config)
 
-netconf_reply = apply_config(d.lab_4331,new_config)
+netconf_reply = get_config_filter(d.lab_c8000v,new_config)
 print(netconf_reply)
