@@ -11,7 +11,8 @@ lab_c8000v = {
              'username': 'admin',
              'password': 'admin',
              'port': 43051,
-             'version': '17.5'
+             'version': '17.5',
+             'commit': False
          }
 
 lab_4331 = {
@@ -19,6 +20,6 @@ lab_4331 = {
              'username': 'admin',
              'password': 'admin',
              'port': 43055,
-             'version': '16.12'
+             'version': '16.12',
+             'commit': True
          }
-
