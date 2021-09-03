@@ -166,4 +166,4 @@ if __name__ == '__main__':
 
     # Se imprimen los resultados en la terminal
     print('')
-    [pprint(line) for line in f_config]
+    [print(line) for line in f_config]
