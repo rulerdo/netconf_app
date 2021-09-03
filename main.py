@@ -1,26 +1,32 @@
 import funciones as fn
 
-device_id,filter_id = fn.get_options_menu()
-device,netconf_filter = fn.get_device_filter(device_id,filter_id)
+def main():
 
-print('Obteniendo configuracion solicitada ...')
-xml_config = fn.get_filtered_config(device,netconf_filter)
+    device_id,filter_id = fn.get_options_menu()
+    device,netconf_filter = fn.get_device_filter(device_id,filter_id)
 
-config = fn.xml_to_json(xml_config)
+    print('Obteniendo configuracion solicitada ...')
+    xml_config = fn.get_filtered_config(device,netconf_filter)
 
-f_config = fn.config_format(config,filter_id)
+    config = fn.xml_to_json(xml_config)
 
-print('')
-[print(line) for line in f_config]
+    f_config = fn.config_format(config,filter_id)
 
-configure = input('Escribe "SI" si deseas modificar la configuracion: ')
+    print('')
+    [print(line) for line in f_config]
 
-if configure == 'SI':
+    configure = input('Escribe "SI" si deseas modificar la configuracion: ')
 
-    new_config = fn.buil_config_xml(filter_id)
-    response = fn.send_config(device,new_config)
+    if configure == 'SI':
 
-else:
-    response = 'ADIOS!'
+        new_config = fn.buil_config_xml(filter_id)
+        print('Aplicando configuracion...')
+        response = fn.send_config(device,new_config)
 
-print(response)
+    else:
+        response = 'ADIOS!'
+
+    print(response)
+
+if __name__ == '__main__':
+    main()
