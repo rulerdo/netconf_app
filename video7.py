@@ -43,6 +43,7 @@ def buil_config_xml(filter_id):
 
 
     elif filter_id == '2':
+
         print('NO esta permitido modificar el usuario admin')
         u = input('Escribe el nuevo usuario: ')
         if u == 'admin':
@@ -67,6 +68,7 @@ def buil_config_xml(filter_id):
                         </config>'''
 
     elif filter_id == '3':
+
         print('NO esta permitido modificar la ruta por default 0.0.0.0/0')
         p = input('Escribe el nuevo prefijo [ex. 192.168.1.0]: ')
         if p == '0.0.0.0':
@@ -126,8 +128,11 @@ def buil_config_xml(filter_id):
 new_config = buil_config_xml('3')
 
 try:
+    
     get_config_filter(d.lab_c8000v,new_config)
     print('OK')
+
 except RPCError as error:
+    
     print('Problemas con la configuracion')
     print('Error:',error._message)
