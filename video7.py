@@ -34,14 +34,13 @@ def buil_config_xml(filter_id):
 
         h = input('Escribe el nuevo hostname: ')
 
-        h_config = f'''
+        new_config = f'''
                     <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
                         <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
                             <hostname>{h}</hostname>
                         </native>
                     </config>'''
 
-        new_config = h_config
 
     elif filter_id == '2':
 
@@ -49,7 +48,7 @@ def buil_config_xml(filter_id):
         p = input('Escribe el nuevo privilegio [0-15]: ')
         s = input('Escribe el nuevo secreto [Texto plano]: ')
         
-        u_config = f'''
+        new_config = f'''
                     <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
                         <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
                             <username>
@@ -63,15 +62,13 @@ def buil_config_xml(filter_id):
                         </native>
                     </config>'''
 
-        new_config = u_config
-
     elif filter_id == '3':
 
         p = input('Escribe el nuevo prefijo [ex. 192.168.1.0]: ')
         m = input('Escribe la nueva mascara [ex. 255.255.255.252]: ')
         n = input('Escribe el nuevo next hop [ex. 10.1.1.1]: ')
 
-        r_config = f'''
+        new_config = f'''
                     <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
                         <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
                             <ip>
@@ -88,14 +85,13 @@ def buil_config_xml(filter_id):
                         </native>
                     </config>'''
 
-        new_config = r_config
 
     elif filter_id == '4':
         
         i = input('Escribe la nueva ip de Loopback 10 [ex. 192.168.1.1]: ')
         m = input('Escribe la nueva mascara [ex. 255.255.255.0]: ')
 
-        l_config = f'''
+        new_config = f'''
                     <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
                         <native	xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
                             <interface>
@@ -113,8 +109,6 @@ def buil_config_xml(filter_id):
                             </interface>
                         </native>
                     </config>'''
-
-        new_config = l_config
         
     else:
         new_config = None
