@@ -43,48 +43,55 @@ def buil_config_xml(filter_id):
 
 
     elif filter_id == '2':
-
+        print('NO esta permitido modificar el usuario admin')
         u = input('Escribe el nuevo usuario: ')
-        p = input('Escribe el nuevo privilegio [0-15]: ')
-        s = input('Escribe el nuevo secreto [Texto plano]: ')
-        
-        new_config = f'''
-                    <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-                        <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-                            <username>
-                                <name>{u}</name>
-                                <privilege>{p}</privilege>
-                                <secret>
-                                    <encryption>0</encryption>
-                                    <secret>{s}</secret>
-                                </secret>
-                            </username>
-                        </native>
-                    </config>'''
+        if u == 'admin':
+            new_config = None
+
+        else:
+            p = input('Escribe el nuevo privilegio [0-15]: ')
+            s = input('Escribe el nuevo secreto [Texto plano]: ')
+            
+            new_config = f'''
+                        <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+                                <username>
+                                    <name>{u}</name>
+                                    <privilege>{p}</privilege>
+                                    <secret>
+                                        <encryption>0</encryption>
+                                        <secret>{s}</secret>
+                                    </secret>
+                                </username>
+                            </native>
+                        </config>'''
 
     elif filter_id == '3':
-
+        print('NO esta permitido modificar la ruta por default 0.0.0.0/0')
         p = input('Escribe el nuevo prefijo [ex. 192.168.1.0]: ')
-        m = input('Escribe la nueva mascara [ex. 255.255.255.252]: ')
-        n = input('Escribe el nuevo next hop [ex. 10.1.1.1]: ')
+        if p == '0.0.0.0':
+            new_config = None
 
-        new_config = f'''
-                    <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-                        <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-                            <ip>
-                                <route>
-                                    <ip-route-interface-forwarding-list>
-                                        <prefix>{p}</prefix>
-                                        <mask>{m}</mask>
-                                        <fwd-list>
-                                            <fwd>{n}</fwd>
-                                        </fwd-list>
-                                    </ip-route-interface-forwarding-list>
-                                </route>
-                            </ip>
-                        </native>
-                    </config>'''
+        else:
+            m = input('Escribe la nueva mascara [ex. 255.255.255.252]: ')
+            n = input('Escribe el nuevo next hop [ex. 10.1.1.1]: ')
 
+            new_config = f'''
+                        <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+                                <ip>
+                                    <route>
+                                        <ip-route-interface-forwarding-list>
+                                            <prefix>{p}</prefix>
+                                            <mask>{m}</mask>
+                                            <fwd-list>
+                                                <fwd>{n}</fwd>
+                                            </fwd-list>
+                                        </ip-route-interface-forwarding-list>
+                                    </route>
+                                </ip>
+                            </native>
+                        </config>'''
 
     elif filter_id == '4':
         
