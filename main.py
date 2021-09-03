@@ -18,7 +18,7 @@ configure = input('Escribe "SI" si deseas modificar la configuracion: ')
 if configure == 'SI':
 
     new_config = fn.buil_config_xml(filter_id)
-    response = fn.send_confg(device,new_config)
+    response = fn.send_config(device,new_config)
 
 else:
     response = 'ADIOS!'
