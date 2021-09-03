@@ -2,6 +2,7 @@ from ncclient import manager,xml_
 from ncclient.operations import RPCError
 import devices as d
 
+
 def get_config_filter(device,new_config):
     
     with manager.connect(
@@ -20,6 +21,7 @@ def get_config_filter(device,new_config):
             m.dispatch(xml_.to_ele(netconf_save))
 
     return netconf_reply
+
 
 def buil_config_xml(filter_id):
 
@@ -119,12 +121,9 @@ def buil_config_xml(filter_id):
 
 new_config = buil_config_xml('3')
 
-get_config_filter(d.lab_c8000v,new_config)
-'''
 try:
     get_config_filter(d.lab_c8000v,new_config)
     print('OK')
 except RPCError as error:
     print('Problemas con la configuracion')
     print('Error:',error._message)
-'''
