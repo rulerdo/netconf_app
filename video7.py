@@ -4,21 +4,26 @@ import devices as d
 
 
 def get_config_filter(device,new_config):
-    
-    with manager.connect(
-        host=device['address'],
-        port=device['port'],
-        username=device['username'],
-        password=device['password'],
-        hostkey_verify=False) as m:
 
-        if device['commit']:
-            netconf_reply = m.edit_config(config=new_config,target='candidate')
-            m.commit()
-        else:
-            netconf_reply = m.edit_config(config=new_config,target='running')
-            netconf_save = '<cisco-ia:save-config xmlns:cisco-ia="http://cisco.com/yang/cisco-ia"/>'
-            m.dispatch(xml_.to_ele(netconf_save))
+    if new_config == None:
+        netconf_reply = ('Configuracion no soportada aun ... ADIOS!')
+
+    else:
+
+        with manager.connect(
+            host=device['address'],
+            port=device['port'],
+            username=device['username'],
+            password=device['password'],
+            hostkey_verify=False) as m:
+
+            if device['commit']:
+                netconf_reply = m.edit_config(config=new_config,target='candidate')
+                m.commit()
+            else:
+                netconf_reply = m.edit_config(config=new_config,target='running')
+                netconf_save = '<cisco-ia:save-config xmlns:cisco-ia="http://cisco.com/yang/cisco-ia"/>'
+                m.dispatch(xml_.to_ele(netconf_save))
 
     return netconf_reply
 
@@ -113,8 +118,6 @@ def buil_config_xml(filter_id):
         
     else:
         new_config = None
-        print('Configuracion no soportada aun ... ADIOS!')
-        exit(1)
 
     return new_config
 
